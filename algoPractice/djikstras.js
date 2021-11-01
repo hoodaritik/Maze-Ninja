@@ -119,15 +119,15 @@ class Graph {
             currNode = this.shortestDistanceNode(distances, visited);
         }
 
-        let shortestPath = [end];
-
-        if(parents[end] === null) {
+        
+        if(parents[end] === undefined) {
             return {
                 path: [],
                 exploredNodes: visited
             }
         }
-
+        
+        let shortestPath = [end];
         let parent = parents[end];
         while(parent) {
             shortestPath.push(parent);
@@ -148,4 +148,5 @@ let g = new Graph(weightArr);
 // let walls = ['2_0','2_1','2_2','1_2','0_2']
 // g.setWalls(walls);
 // console.log(g.getChildren('1_1'));
+g.setWalls(g.getChildren('1_1'))
 console.log(g.startDjikstra('1_1', '9_9'));
