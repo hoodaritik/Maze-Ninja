@@ -1,5 +1,5 @@
-import Djikstra from "../algorithms/djikstra.js";
-import Astar from '../algorithms/astar.js'
+import Djikstra from "../algorithms/unweighted/djikstra.js";
+import Astar from '../algorithms/unweighted/astar.js'
 
 const weightArr = [
     [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
