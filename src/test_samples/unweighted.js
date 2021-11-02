@@ -12,7 +12,7 @@ const matrix = [ // 8 * 8 matrix && 1s are walls
 const objMatrix = matrix.map(row => {
     return row.map(cell => {
         return {
-            isWall: cell === 1? true : false,
+            isWall: cell === 1? false : false,
             weight: 1
         }
     })

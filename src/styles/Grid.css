@@ -1,0 +1,23 @@
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.cell {
+    height: 25px;
+    width: 25px;
+    border: solid black 1px;
+    transition: 0.2s ease;
+}
+
+.wall {
+    background-color: black;
+}
+
+.visited {
+    background-color: dodgerblue;
+}
+
+.path {
+    background-color: yellow;
+}
