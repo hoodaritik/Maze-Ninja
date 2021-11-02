@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 class Node {
     constructor(cellData) {
         this.weight = cellData.weight;
@@ -7,7 +6,9 @@ class Node {
 }
 
 class Graph {
-    constructor(cellArr) {
+    constructor(start, end, cellArr) {
+        this.start = start;
+        this.end = end;
         this.matrix = {};
         this.rows = cellArr.length;
         this.columns = cellArr[0].length;
@@ -58,42 +59,33 @@ class Graph {
 
     }
 
-    startDjikstra(start, end) {
+    startAlgorithm() {
         let distances = {}; // { id(string): distance(number) }
         // distances[end] = Infinity;
 
-        let startNodeChildren = this.getChildren(start);
+        let startNodeChildren = this.getChildren(this.start);
         for (let i = 0; i < startNodeChildren.length; i++) {
             let child = startNodeChildren[i];
             distances[child] = this.matrix[child].weight;
         }
 
-        // console.log(distances);
-
         let parents = {};
         // parents[end] = null;
         for (let i = 0; i < startNodeChildren.length; i++) {
             let child = startNodeChildren[i];
-            parents[child] = start;
+            parents[child] = this.start;
         }
 
-        // console.log(parents);
-
         let visited = [];
-
         let currNode = this.shortestDistanceNode(distances, visited);
-
-        // console.log(currNode);
 
         while (currNode) {
             let distance = distances[currNode];
             let children = this.getChildren(currNode);
 
-            // console.log(distance, children);
-
             for (let i = 0; i < children.length; i++) {
                 let child = children[i];
-                if (child === start) continue;
+                if (child === this.start) continue;
 
                 let newDistance = distance + this.matrix[child].weight;
 
@@ -108,15 +100,15 @@ class Graph {
         }
 
 
-        if (parents[end] === undefined) {
+        if (parents[this.end] === undefined) {
             return {
                 path: [],
                 exploredNodes: visited
             }
         }
 
-        let shortestPath = [end];
-        let parent = parents[end];
+        let shortestPath = [this.end];
+        let parent = parents[this.end];
         while (parent) {
             shortestPath.push(parent);
             parent = parents[parent];

@@ -29,7 +29,9 @@ class Node {
 }
 
 class Graph {
-    constructor(cellArr) {
+    constructor(start, end, cellArr) {
+        this.start = start;
+        this.end = end;
         this.matrix = {};
         this.rows = weightArr.length;
         this.columns = weightArr[0].length;
@@ -80,32 +82,25 @@ class Graph {
 
     }
 
-    startDjikstra(start, end) {
+    startAlgorithm() {
         let distances = {}; // { id(string): distance(number) }
         // distances[end] = Infinity;
 
-        let startNodeChildren = this.getChildren(start);
+        let startNodeChildren = this.getChildren(this.start);
         for (let i = 0; i < startNodeChildren.length; i++) {
             let child = startNodeChildren[i];
             distances[child] = this.matrix[child].weight;
         }
 
-        // console.log(distances);
-
         let parents = {};
         // parents[end] = null;
         for (let i = 0; i < startNodeChildren.length; i++) {
             let child = startNodeChildren[i];
-            parents[child] = start;
+            parents[child] = this.start;
         }
 
-        // console.log(parents);
-
         let visited = [];
-
         let currNode = this.shortestDistanceNode(distances, visited);
-
-        // console.log(currNode);
 
         while (currNode) {
             let distance = distances[currNode];
@@ -115,7 +110,7 @@ class Graph {
 
             for (let i = 0; i < children.length; i++) {
                 let child = children[i];
-                if (child === start) continue;
+                if (child === this.start) continue;
 
                 let newDistance = distance + this.matrix[child].weight;
 
@@ -130,15 +125,15 @@ class Graph {
         }
 
 
-        if (parents[end] === undefined) {
+        if (parents[this.end] === undefined) {
             return {
                 path: [],
                 exploredNodes: visited
             }
         }
 
-        let shortestPath = [end];
-        let parent = parents[end];
+        let shortestPath = [this.end];
+        let parent = parents[this.end];
         while (parent) {
             shortestPath.push(parent);
             parent = parents[parent];
@@ -154,9 +149,9 @@ class Graph {
     }
 }
 
-let g = new Graph(objArr);
-// let walls = ['2_0','2_1','2_2','1_2','0_2']
-// g.setWalls(walls);
+let g = new Graph('0_0', '9_9', objArr);
+let walls = ['2_0','1_2','0_2']
+g.setWalls(walls);
 // console.log(g.getChildren('1_1'));
 // g.setWalls(g.getChildren('1_1'))
-console.log(g.startDjikstra('0_0', '9_9'));
+console.log(g.startAlgorithm());

@@ -22,5 +22,5 @@ const objArr = weightArr.map(row => {
     })
 })
 
-let g = new Graph(objArr);
-console.log(g.startDjikstra('4_4', '9_9'));
+let g = new Graph('5_5','9_9',objArr);
+console.log(g.startAlgorithm());
