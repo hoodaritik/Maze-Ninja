@@ -56,7 +56,6 @@ class Graph {
         })
 
         return children;
-
     }
 
     startAlgorithm() {

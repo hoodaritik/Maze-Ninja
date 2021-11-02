@@ -1,5 +1,6 @@
-import Djikstra from "../algorithms/unweighted/djikstra.js";
-import Astar from '../algorithms/unweighted/astar.js'
+import Djikstra from "../algorithms/weighted/djikstra.js";
+import Astar from '../algorithms/weighted/astar.js'
+import dfs from '../algorithms/unweighted/dfs.js'
 
 const weightArr = [
     [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
@@ -23,14 +24,26 @@ const objArr = weightArr.map(row => {
     })
 })
 
-let djikstraGraph = new Djikstra('0_0','5_4',objArr);
-let djikstraResponse = djikstraGraph.startAlgorithm();
+// let djikstraGraph = new Djikstra('0_0','5_4',objArr);
+// let djikstraResponse = djikstraGraph.startAlgorithm();
 
-let astarGraph = new Astar('0_0','5_4',objArr);
-let astarResponse = astarGraph.startAlgorithm()
+// let astarGraph = new Astar('0_0','5_4',objArr);
+// let astarResponse = astarGraph.startAlgorithm()
 
+// let cellArr = [];
+
+// for(let i = 0; i < 5; i++) {
+//     cellArr.push([]);
+//     for(let j = 0; j < 5; j++) {
+//         cellArr[i].push({ isWall: j === 3 && i < 4? true:false })
+//     }
+// }
+
+// let dfsGraph = new dfs('0_0', '4_4', cellArr);
+// let dfsResponse = dfsGraph.startAlgorithm();
+// console.log(dfsResponse);
 
 // console.log([1,2] === [1,2]);
 // console.log(djikstraResponse.path === astarResponse.path);
-console.log(astarResponse.path, djikstraResponse.path);
-console.log(astarResponse.exploredNodes.includes('5_4'), djikstraResponse.exploredNodes.includes('5_4'));
+// console.log(astarResponse.path, djikstraResponse.path);
+// console.log(astarResponse.exploredNodes.includes('5_4'), djikstraResponse.exploredNodes.includes('5_4'));
