@@ -155,8 +155,8 @@ class Graph {
 }
 
 let g = new Graph(objArr);
-let walls = ['2_0','2_1','2_2','1_2','0_2']
-g.setWalls(walls);
+// let walls = ['2_0','2_1','2_2','1_2','0_2']
+// g.setWalls(walls);
 // console.log(g.getChildren('1_1'));
 // g.setWalls(g.getChildren('1_1'))
 console.log(g.startDjikstra('0_0', '9_9'));
