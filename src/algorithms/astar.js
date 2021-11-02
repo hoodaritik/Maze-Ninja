@@ -92,7 +92,11 @@ class NodeElement {
 }
 
 class AStar {
-    constructor(start, end, grid) {
+    constructor(start_str, end_str, grid) {
+        let start = [parseInt(start_str.split('_')[0]), parseInt(start_str.split('_')[1])]
+        let end = [parseInt(end_str.split('_')[0]), parseInt(end_str.split('_')[1])]
+
+
         this.grid = grid
         this.matrixLength = this.grid.length
         this.nodes = []
@@ -159,45 +163,6 @@ class AStar {
     eucledianDistance(node) {
         return Math.sqrt(Math.pow(Math.abs(node.row - this.end.row), 2) + Math.pow(Math.abs(node.col - this.end.col), 2))
     }
-
 }
 
-const weightArr = [
-    [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
-    [16, 1, 6, 17, 2, 7, 1, 15, 16, 4],
-    [4, 8, 11, 7, 11, 8, 4, 16, 11, 1],
-    [1, 13, 3, 17, 11, 9, 14, 8, 3, 5],
-    [3, 16, 11, 13, 1, 3, 12, 14, 12, 13],
-    [1, 3, 5, 16, 7, 6, 15, 15, 14, 3],
-    [12, 18, 4, 15, 16, 8, 16, 17, 4, 1],
-    [12, 5, 15, 10, 9, 19, 18, 7, 4, 7],
-    [17, 3, 14, 16, 5, 14, 3, 19, 4, 19],
-    [2, 11, 18, 10, 19, 2, 19, 13, 19, 0]
-]
-
-const objArr = weightArr.map(row => {
-    return row.map(weight => {
-        return {
-            weight,
-            isWall: false
-        }
-    })
-})
-
-// objArr[2][0].isWall = true;
-// objArr[2][1].isWall = true;
-// objArr[2][2].isWall = true;
-// objArr[1][2].isWall = true;
-// objArr[0][2].isWall = true;
-
-let a = new AStar([0, 0], [9, 9], objArr)
-// console.log(a);
-console.log(a.startAlgorithm());
-
-// a.startAlgorithm()
-// let optimalPath = a.optimalPath
-// let alreadyChecked = a.alreadyChecked
-// let path = optimalPath.map(node => {return `${node.row}_${node.col}`})
-// let exploredNodes = alreadyChecked.map(node => {return `${node.row}_${node.col}`})
-// path.reverse();
-// console.log(path, exploredNodes);
+export default AStar;

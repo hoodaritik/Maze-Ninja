@@ -1,4 +1,5 @@
-import Graph from "../algorithms/djikstra.js";
+import Djikstra from "../algorithms/djikstra.js";
+import Astar from '../algorithms/astar.js'
 
 const weightArr = [
     [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
@@ -22,5 +23,14 @@ const objArr = weightArr.map(row => {
     })
 })
 
-let g = new Graph('5_5','9_9',objArr);
-console.log(g.startAlgorithm());
+let djikstraGraph = new Djikstra('0_0','9_9',objArr);
+let djikstraResponse = djikstraGraph.startAlgorithm();
+
+let astarGraph = new Astar('0_0','9_9',objArr);
+let astarResponse = astarGraph.startAlgorithm()
+
+
+// console.log([1,2] === [1,2]);
+// console.log(djikstraResponse.path === astarResponse.path);
+
+console.log(astarResponse.path, djikstraResponse.path);
