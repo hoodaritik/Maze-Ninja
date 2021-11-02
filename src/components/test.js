@@ -1,6 +1,8 @@
 import Djikstra from "../algorithms/weighted/djikstra.js";
 import Astar from '../algorithms/weighted/astar.js'
 import dfs from '../algorithms/unweighted/dfs.js'
+import bfs from '../algorithms/unweighted/bfs.js'
+import testGrid from '../test_samples/unweighted.js'
 
 const weightArr = [
     [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
@@ -24,8 +26,13 @@ const objArr = weightArr.map(row => {
     })
 })
 
-// let djikstraGraph = new Djikstra('0_0','5_4',objArr);
-// let djikstraResponse = djikstraGraph.startAlgorithm();
+let djikstraGraph = new Djikstra('0_0','7_7', testGrid);
+let djikstraResponse = djikstraGraph.startAlgorithm();
+console.log(djikstraResponse.path);
+
+let bfsGrid = new bfs('0_0','7_7', testGrid);
+let bfsResponse = bfsGrid.startAlgorithm();
+console.log(bfsResponse.path);
 
 // let astarGraph = new Astar('0_0','5_4',objArr);
 // let astarResponse = astarGraph.startAlgorithm()
