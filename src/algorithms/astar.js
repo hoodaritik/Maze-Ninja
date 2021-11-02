@@ -140,6 +140,11 @@ class AStar {
         let alreadyChecked = this.alreadyChecked
         let path = optimalPath.map(node => { return `${node.row}_${node.col}` })
         let exploredNodes = alreadyChecked.map(node => { return `${node.row}_${node.col}` })
+        if(path.length) {
+            // experimental
+            // console.log(this.end.row, this.end.col);
+            exploredNodes.push(`${this.end.row}_${this.end.col}`)
+        }   
         path.reverse();
 
         return {

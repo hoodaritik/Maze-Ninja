@@ -23,14 +23,14 @@ const objArr = weightArr.map(row => {
     })
 })
 
-let djikstraGraph = new Djikstra('0_0','9_9',objArr);
+let djikstraGraph = new Djikstra('0_0','5_4',objArr);
 let djikstraResponse = djikstraGraph.startAlgorithm();
 
-let astarGraph = new Astar('0_0','9_9',objArr);
+let astarGraph = new Astar('0_0','5_4',objArr);
 let astarResponse = astarGraph.startAlgorithm()
 
 
 // console.log([1,2] === [1,2]);
 // console.log(djikstraResponse.path === astarResponse.path);
-
 console.log(astarResponse.path, djikstraResponse.path);
+console.log(astarResponse.exploredNodes.includes('5_4'), djikstraResponse.exploredNodes.includes('5_4'));
