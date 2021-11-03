@@ -133,31 +133,34 @@ function Grid({ rows, columns }) {
     })
 
     return (
-        <div>
-            {
-                grid.map((row, row_index) => {
-                    return (
-                        <div className="row" key={row_index}>
-                            {
-                                row.map((cell, column_index) => {
-                                    let id = `${row_index}_${column_index}`;
-                                    return <div
-                                        className="cell"
-                                        id={id}
-                                        onMouseDown={() => cellMouseDownHandler(id)}
-                                        onMouseUp={() => cellMouseUpHandler()}
-                                        onMouseEnter={() => cellMouseEnterHandler(id)}
-                                        key={column_index}
-                                    >
-                                    </div>
-                                })
-                            }
-                        </div>
-                    )
-                })
-            }
+        <div className="grid-top-container">
+            <div className="grid">
+                {
+                    grid.map((row, row_index) => {
+                        return (
+                            <div className="row" key={row_index}>
+                                {
+                                    row.map((cell, column_index) => {
+                                        let id = `${row_index}_${column_index}`;
+                                        return <div
+                                            className="cell"
+                                            id={id}
+                                            onMouseDown={() => cellMouseDownHandler(id)}
+                                            onMouseUp={() => cellMouseUpHandler()}
+                                            onMouseEnter={() => cellMouseEnterHandler(id)}
+                                            key={column_index}
+                                        >
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
+            </div>
 
-            <div className="actions-btns">
+            <div className="action-btns">
+                <h3>Run Algorithms</h3>
                 <button onClick={simulateBFS}>Simulate BFS</button>
                 <button onClick={simulateDFS}>Simulate DFS</button>
                 <button onClick={simulateDjikstra}>Simulate Djikstra</button>

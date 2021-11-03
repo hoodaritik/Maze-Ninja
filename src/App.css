@@ -8,6 +8,24 @@
   overflow-x: hidden;
   font-family: 'Urbanist', sans-serif;
   font-weight: bold;
+
+  position: relative;
+
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  
+  /*
+    Introduced in IE 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
 }
 
 .nav {
@@ -23,6 +41,7 @@
 
 nav {
   background-color: blueviolet;
+  display: flex;
 }
 
 nav a {

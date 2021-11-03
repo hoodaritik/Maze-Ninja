@@ -5,12 +5,12 @@ import AstarGraph from '../algorithms/weighted/astar'
 
 function Grid({ rows, columns, range }) {
     let grid = [];
-    let start = `${Math.floor(rows/2)}_${Math.floor(columns/3)}`;
-    let end = `${Math.floor(rows/2)}_${Math.floor(2*columns/3)}`;
+    let start = `${Math.floor(rows / 2)}_${Math.floor(columns / 3)}`;
+    let end = `${Math.floor(rows / 2)}_${Math.floor(2 * columns / 3)}`;
 
-    for(let i = 0; i < rows; i++) {
+    for (let i = 0; i < rows; i++) {
         grid.push([]);
-        for(let j = 0; j < columns; j++) {
+        for (let j = 0; j < columns; j++) {
             grid[i].push({
                 weight: Math.floor(Math.random() * range),
                 isWall: false
@@ -21,11 +21,11 @@ function Grid({ rows, columns, range }) {
     let isMouseDown = false;
     let isMouseDowninStartPoint = false;
     let isMouseDowninEndPoint = false;
-    
+
     function setMouseDown(cell_id, val) {
-        if(val) {
-            if(cell_id === start) isMouseDowninStartPoint = true;
-            else if(cell_id === end) isMouseDowninEndPoint = true;
+        if (val) {
+            if (cell_id === start) isMouseDowninStartPoint = true;
+            else if (cell_id === end) isMouseDowninEndPoint = true;
             else isMouseDown = true;
         } else {
             isMouseDown = false;
@@ -52,20 +52,24 @@ function Grid({ rows, columns, range }) {
     }
 
     function cellMouseEnterHandler(id) {
+
         if (isMouseDown) {
-            let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
+            let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])];
             grid[i][j].isWall = true;
             markWallOnGrid(id);
         }
 
+
         if (isMouseDowninStartPoint) {
-            document.getElementById(start).innerText = "";
+            let [i, j] = [parseInt(start.split('_')[0]), parseInt(start.split('_')[1])];
+            document.getElementById(start).innerText = grid[i][j].weight;
             start = id;
             document.getElementById(start).innerText = "S";
         }
 
         if (isMouseDowninEndPoint) {
-            document.getElementById(end).innerText = "";
+            let [i, j] = [parseInt(end.split('_')[0]), parseInt(end.split('_')[1])];
+            document.getElementById(end).innerText = grid[i][j].weight;
             end = id;
             document.getElementById(end).innerText = "E";
         }
@@ -118,32 +122,35 @@ function Grid({ rows, columns, range }) {
     }, [])
 
     return (
-        <div>
-            {
-                grid.map((row, row_index) => {
-                    return (
-                        <div className="row" key={row_index}>
-                            {
-                                row.map((cell, column_index) => {
-                                    let id = `${row_index}_${column_index}`;
-                                    return <div
-                                        className="cell"
-                                        id={id}
-                                        onMouseDown={() => cellMouseDownHandler(id)}
-                                        onMouseUp={() => cellMouseUpHandler()}
-                                        onMouseEnter={() => cellMouseEnterHandler(id)}
-                                        key={column_index}
-                                    >
-                                        {grid[row_index][column_index].weight}
-                                    </div>
-                                })
-                            }
-                        </div>
-                    )
-                })
-            }
+        <div className="grid-top-container">
+            <div className="grid-container">
+                {
+                    grid.map((row, row_index) => {
+                        return (
+                            <div className="row" key={row_index}>
+                                {
+                                    row.map((cell, column_index) => {
+                                        let id = `${row_index}_${column_index}`;
+                                        return <div
+                                            className="cell"
+                                            id={id}
+                                            onMouseDown={() => cellMouseDownHandler(id)}
+                                            onMouseUp={() => cellMouseUpHandler()}
+                                            onMouseEnter={() => cellMouseEnterHandler(id)}
+                                            key={column_index}
+                                        >
+                                            {grid[row_index][column_index].weight}
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
+            </div>
 
-            <div className="actions-btns">
+            <div className="action-btns">
+                <h3>Run Algorithms</h3>
                 <button onClick={simulateDjikstra}>Simulate Djikstra</button>
                 <button onClick={simulateAstar}>Simulate A*</button>
             </div>

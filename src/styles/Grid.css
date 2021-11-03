@@ -1,27 +1,57 @@
+.grid-top-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .row {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .cell {
-    height: 25px;
-    width: 25px;
-    border: solid black 1px;
-    transition: 0.2s ease;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 25px;
+  width: 25px;
+  border: solid black 1px;
+  transition: 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wall {
-    background-color: black;
+  background-color: black;
 }
 
 .visited {
-    background-color: dodgerblue;
+  background-color: dodgerblue;
 }
 
 .path {
-    background-color: yellow;
+  background-color: yellow;
+}
+
+.action-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: blueviolet;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 10vw;
+  margin: 10px 0;
+}
+
+button:hover,
+button:active {
+  background-color: rgb(173, 109, 233);
 }
