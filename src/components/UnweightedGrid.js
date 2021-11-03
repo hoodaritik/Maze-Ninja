@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Grid.css'
 import bfsGraph from '../algorithms/unweighted/bfs'
+import dfsGraph from '../algorithms/unweighted/dfs'
+import DjikstraGraph from '../algorithms/weighted/djikstra'
+import AstarGraph from '../algorithms/weighted/astar'
 
 function Grid({ grid }) {
-    // let isMouseDown = false;
     const [isMouseDown, setMouseDown] = useState(false);
 
     function markWallOnGrid(id) {
@@ -40,12 +42,30 @@ function Grid({ grid }) {
             } else {
                 document.getElementById(sequence[i++]).classList.add(classType);
             }
-        }, 50);
+        }, 10);
     }
 
     function simulateBFS() {
-        let bfsGrid = new bfsGraph('0_0', '7_7', grid);
+        let bfsGrid = new bfsGraph('2_2', '7_7', grid);
         let { path, exploredNodes } = bfsGrid.startAlgorithm();
+        markCellSequence(exploredNodes, path, 'visited');
+    }
+
+    function simulateDFS() {
+        let dfsGrid = new dfsGraph('2_2', '7_7', grid);
+        let { path, exploredNodes } = dfsGrid.startAlgorithm();
+        markCellSequence(exploredNodes, path, 'visited');
+    }
+
+    function simulateDjikstra() {
+        let djikstraGrid = new DjikstraGraph('2_2', '7_7', grid);
+        let { path, exploredNodes } = djikstraGrid.startAlgorithm();
+        markCellSequence(exploredNodes, path, 'visited');
+    }
+
+    function simulateAstar() {
+        let astarGrid = new AstarGraph('2_2', '7_7', grid);
+        let { exploredNodes, path } = astarGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
     }
 
@@ -82,9 +102,9 @@ function Grid({ grid }) {
 
             <div className="actions-btns">
                 <button onClick={simulateBFS}>Simulate BFS</button>
-                <button>Simulate DFS</button>
-                <button>Simulate Djikstra</button>
-                <button>Simulate A*</button>
+                <button onClick={simulateDFS}>Simulate DFS</button>
+                <button onClick={simulateDjikstra}>Simulate Djikstra</button>
+                <button onClick={simulateAstar}>Simulate A*</button>
             </div>
         </div>
     )

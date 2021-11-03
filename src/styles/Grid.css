@@ -8,6 +8,7 @@
     width: 25px;
     border: solid black 1px;
     transition: 0.2s ease;
+    cursor: pointer;
 }
 
 .wall {

@@ -73,7 +73,7 @@ class Graph {
 
         path.reverse();
 
-        return { found, visited, path };
+        return { found, exploredNodes: visited, path };
     }
 }
 

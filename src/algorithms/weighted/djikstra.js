@@ -75,7 +75,7 @@ class Graph {
             parents[child] = this.start;
         }
 
-        let visited = [];
+        let visited = [this.start];
         let currNode = this.shortestDistanceNode(distances, visited);
 
         while (currNode) {
