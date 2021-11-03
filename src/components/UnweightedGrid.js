@@ -5,7 +5,19 @@ import dfsGraph from '../algorithms/unweighted/dfs'
 import DjikstraGraph from '../algorithms/weighted/djikstra'
 import AstarGraph from '../algorithms/weighted/astar'
 
-function Grid({ grid }) {
+function Grid({ rows, columns }) {
+    let grid = [];
+
+    for(let i = 0; i < rows; i++) {
+        grid.push([]);
+        for(let j = 0; j < columns; j++) {
+            grid[i].push({
+                weight: 1,
+                isWall: false
+            })
+        }
+    }
+
     const [isMouseDown, setMouseDown] = useState(false);
 
     function markWallOnGrid(id) {

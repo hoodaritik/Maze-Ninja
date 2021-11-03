@@ -3,8 +3,24 @@ import '../styles/Grid.css'
 import DjikstraGraph from '../algorithms/weighted/djikstra'
 import AstarGraph from '../algorithms/weighted/astar'
 
-function Grid({ grid }) {
-    const [isMouseDown, setMouseDown] = useState(false);
+function Grid({ rows, columns, range }) {
+    let grid = [];
+
+    for(let i = 0; i < rows; i++) {
+        grid.push([]);
+        for(let j = 0; j < columns; j++) {
+            grid[i].push({
+                weight: Math.floor(Math.random() * range),
+                isWall: false
+            })
+        }
+    }
+
+    let isMouseDown = false;
+    
+    function setMouseDown(val) {
+        isMouseDown = val;
+    }
 
     function markWallOnGrid(id) {
         document.getElementById(id).classList.add('wall');
