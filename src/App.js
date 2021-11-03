@@ -5,6 +5,9 @@ import UnweightedGrid from './components/UnweightedGrid'
 import WeightedGrid from './components/WeightedGrid'
 import unweightedTestGrid from './test_samples/unweighted.js'
 import weightedTestGrid from './test_samples/weighted.js'
+import Ninja from './components/Ninja.js'
+import GraphNinja from './components/GraphNinja.js'
+
 import {
   BrowserRouter,
   Route,
@@ -16,13 +19,12 @@ import {
 const history = createBrowserHistory();
 
 function App() {
-  const [Rows, setRows] = useState();
-  const [Columns, setColumns] = useState()
 
   return (
     <BrowserRouter history={history}>
       <div className="App">
         <nav className="nav">
+          <Ninja />
           <Link to="/">Home</Link>
           <Link to="/unweighted">Unweighted Graph</Link>
           <Link to="/weighted">Weighted Graph</Link>
@@ -30,6 +32,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <h1>Hello there!</h1>
+            <GraphNinja />
           </Route>
           <Route path="/unweighted">
             <UnweightedGrid rows={25} columns={40} />
