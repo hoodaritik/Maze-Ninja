@@ -5,6 +5,8 @@ import AstarGraph from '../algorithms/weighted/astar'
 
 function Grid({ rows, columns, range }) {
     let grid = [];
+    let start = `${Math.floor(rows/2)}_${Math.floor(columns/3)}`;
+    let end = `${Math.floor(rows/2)}_${Math.floor(2*columns/3)}`;
 
     for(let i = 0; i < rows; i++) {
         grid.push([]);
@@ -17,9 +19,19 @@ function Grid({ rows, columns, range }) {
     }
 
     let isMouseDown = false;
+    let isMouseDowninStartPoint = false;
+    let isMouseDowninEndPoint = false;
     
-    function setMouseDown(val) {
-        isMouseDown = val;
+    function setMouseDown(cell_id, val) {
+        if(val) {
+            if(cell_id === start) isMouseDowninStartPoint = true;
+            else if(cell_id === end) isMouseDowninEndPoint = true;
+            else isMouseDown = true;
+        } else {
+            isMouseDown = false;
+            isMouseDowninStartPoint = false;
+            isMouseDowninEndPoint = false;
+        }
     }
 
     function markWallOnGrid(id) {
@@ -27,10 +39,12 @@ function Grid({ rows, columns, range }) {
     }
 
     function cellMouseDownHandler(id) {
-        setMouseDown(true);
-        let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
-        grid[i][j].isWall = true;
-        markWallOnGrid(id);
+        setMouseDown(id, true);
+        if (id !== start && id !== end) {
+            let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
+            grid[i][j].isWall = true;
+            markWallOnGrid(id);
+        }
     }
 
     function cellMouseUpHandler() {
@@ -42,6 +56,18 @@ function Grid({ rows, columns, range }) {
             let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
             grid[i][j].isWall = true;
             markWallOnGrid(id);
+        }
+
+        if (isMouseDowninStartPoint) {
+            document.getElementById(start).innerText = "";
+            start = id;
+            document.getElementById(start).innerText = "S";
+        }
+
+        if (isMouseDowninEndPoint) {
+            document.getElementById(end).innerText = "";
+            end = id;
+            document.getElementById(end).innerText = "E";
         }
     }
 
@@ -56,25 +82,39 @@ function Grid({ rows, columns, range }) {
             } else {
                 document.getElementById(sequence[i++]).classList.add(classType);
             }
-        }, 50);
+        }, 10);
     }
 
+    function markEndPoints() {
+        document.getElementById(start).innerText = "S"
+        document.getElementById(end).innerText = "E"
+    }
+
+
     function simulateDjikstra() {
-        let djikstraGrid = new DjikstraGraph('0_0', '9_9', grid);
+        let djikstraGrid = new DjikstraGraph(start, end, grid);
         let { path, exploredNodes } = djikstraGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
     }
 
     function simulateAstar() {
-        let astarGrid = new AstarGraph('0_0', '9_9', grid);
+        let astarGrid = new AstarGraph(start, end, grid);
         let { exploredNodes, path } = astarGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
     }
 
     useEffect(() => {
         document.addEventListener('mouseup', () => {
-            setMouseDown(false);
+            setMouseDown("", false);
         })
+
+        markEndPoints();
+
+        return () => {
+            document.removeEventListener('mouseup', () => {
+                setMouseDown("", false);
+            })
+        }
     }, [])
 
     return (

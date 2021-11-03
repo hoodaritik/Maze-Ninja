@@ -7,12 +7,12 @@ import AstarGraph from '../algorithms/weighted/astar'
 
 function Grid({ rows, columns }) {
     let grid = [];
-    let start = `${Math.floor(rows/2)}_${Math.floor(columns/3)}`;
-    let end = `${Math.floor(rows/2)}_${Math.floor(2*columns/3)}`;
+    let start = `${Math.floor(rows / 2)}_${Math.floor(columns / 3)}`;
+    let end = `${Math.floor(rows / 2)}_${Math.floor(2 * columns / 3)}`;
 
-    for(let i = 0; i < rows; i++) {
+    for (let i = 0; i < rows; i++) {
         grid.push([]);
-        for(let j = 0; j < columns; j++) {
+        for (let j = 0; j < columns; j++) {
             grid[i].push({
                 weight: 1,
                 isWall: false
@@ -21,9 +21,19 @@ function Grid({ rows, columns }) {
     }
 
     let isMouseDown = false;
-    
-    function setMouseDown(val) {
-        isMouseDown = val;
+    let isMouseDowninStartPoint = false;
+    let isMouseDowninEndPoint = false;
+
+    function setMouseDown(cell_id, val) {
+        if (val) {
+            if (cell_id === start) isMouseDowninStartPoint = true;
+            else if (cell_id === end) isMouseDowninEndPoint = true;
+            else isMouseDown = true;
+        } else {
+            isMouseDown = false;
+            isMouseDowninStartPoint = false;
+            isMouseDowninEndPoint = false;
+        }
     }
 
     function markWallOnGrid(id) {
@@ -31,14 +41,16 @@ function Grid({ rows, columns }) {
     }
 
     function cellMouseDownHandler(id) {
-        setMouseDown(true);
-        let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
-        grid[i][j].isWall = true;
-        markWallOnGrid(id);
+        setMouseDown(id, true);
+        if (id !== start && id !== end) {
+            let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
+            grid[i][j].isWall = true;
+            markWallOnGrid(id);
+        }
     }
 
     function cellMouseUpHandler() {
-        setMouseDown(false);
+        setMouseDown("", false);
     }
 
     function cellMouseEnterHandler(id) {
@@ -46,6 +58,18 @@ function Grid({ rows, columns }) {
             let [i, j] = [parseInt(id.split('_')[0]), parseInt(id.split('_')[1])]
             grid[i][j].isWall = true;
             markWallOnGrid(id);
+        }
+
+        if (isMouseDowninStartPoint) {
+            document.getElementById(start).innerText = "";
+            start = id;
+            document.getElementById(start).innerText = "S";
+        }
+
+        if (isMouseDowninEndPoint) {
+            document.getElementById(end).innerText = "";
+            end = id;
+            document.getElementById(end).innerText = "E";
         }
     }
 
@@ -89,11 +113,24 @@ function Grid({ rows, columns }) {
         console.log(exploredNodes);
     }
 
+    function markEndPoints() {
+        document.getElementById(start).innerText = "S"
+        document.getElementById(end).innerText = "E"
+    }
+
     useEffect(() => {
         document.addEventListener('mouseup', () => {
-            setMouseDown(false);
+            setMouseDown("", false);
         })
-    }, [])
+
+        markEndPoints();
+
+        return () => {
+            document.removeEventListener('mouseup', () => {
+                setMouseDown("", false);
+            })
+        }
+    })
 
     return (
         <div>
