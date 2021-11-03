@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../styles/Grid.css'
 import bfsGraph from '../algorithms/unweighted/bfs'
 import dfsGraph from '../algorithms/unweighted/dfs'
@@ -7,6 +7,8 @@ import AstarGraph from '../algorithms/weighted/astar'
 
 function Grid({ rows, columns }) {
     let grid = [];
+    let start = `${Math.floor(rows/2)}_${Math.floor(columns/3)}`;
+    let end = `${Math.floor(rows/2)}_${Math.floor(2*columns/3)}`;
 
     for(let i = 0; i < rows; i++) {
         grid.push([]);
@@ -18,7 +20,11 @@ function Grid({ rows, columns }) {
         }
     }
 
-    const [isMouseDown, setMouseDown] = useState(false);
+    let isMouseDown = false;
+    
+    function setMouseDown(val) {
+        isMouseDown = val;
+    }
 
     function markWallOnGrid(id) {
         document.getElementById(id).classList.add('wall');
@@ -58,27 +64,29 @@ function Grid({ rows, columns }) {
     }
 
     function simulateBFS() {
-        let bfsGrid = new bfsGraph('2_2', '7_7', grid);
+        let bfsGrid = new bfsGraph(start, end, grid);
         let { path, exploredNodes } = bfsGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
     }
 
     function simulateDFS() {
-        let dfsGrid = new dfsGraph('2_2', '7_7', grid);
+        let dfsGrid = new dfsGraph(start, end, grid);
         let { path, exploredNodes } = dfsGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
     }
 
     function simulateDjikstra() {
-        let djikstraGrid = new DjikstraGraph('2_2', '7_7', grid);
+        let djikstraGrid = new DjikstraGraph(start, end, grid);
         let { path, exploredNodes } = djikstraGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
+        console.log(path);
     }
 
     function simulateAstar() {
-        let astarGrid = new AstarGraph('2_2', '7_7', grid);
+        let astarGrid = new AstarGraph(start, end, grid);
         let { exploredNodes, path } = astarGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
+        console.log(exploredNodes);
     }
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../styles/Grid.css'
 import DjikstraGraph from '../algorithms/weighted/djikstra'
 import AstarGraph from '../algorithms/weighted/astar'

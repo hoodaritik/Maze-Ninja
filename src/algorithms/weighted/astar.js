@@ -38,7 +38,7 @@ class NodeElement {
         let enqueuedNode
         let newNode
 
-        if (this.row < this.aStar.matrixLength - 1) {
+        if (this.row < this.aStar.rows - 1) {
             enqueuedNode = openQueue.find(node => node.row === this.row + 1 && node.col === this.col)
             if (!enqueuedNode) {
                 newNode = this.aStar.nodes.find(node => (node.row === this.row + 1 && node.col === this.col))
@@ -50,7 +50,7 @@ class NodeElement {
                 enqueuedNode.heuristicCalculation(this)
             }
         }
-        if (this.col < this.aStar.matrixLength - 1) {
+        if (this.col < this.aStar.columns - 1) {
             enqueuedNode = openQueue.find(node => node.row === this.row && node.col === this.col + 1)
             if (!enqueuedNode) {
                 newNode = this.aStar.nodes.find(node => (node.row === this.row && node.col === this.col + 1))
@@ -98,7 +98,8 @@ class AStar {
 
 
         this.grid = grid
-        this.matrixLength = this.grid.length
+        this.rows = this.grid.length
+        this.columns = this.grid[0].length
         this.nodes = []
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[0].length; j++) {

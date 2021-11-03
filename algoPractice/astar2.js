@@ -92,23 +92,22 @@ class NodeElement {
 }
 
 class AStar {
+
     constructor(start, end, grid) {
         this.grid = grid
-        // this.matrixLength = this.grid.length
         this.rows = this.grid.length
         this.columns = this.grid[0].length
         this.nodes = []
-
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[0].length; j++) {
                 if (i === start[0] && j === start[1]) {
-                    this.start = new NodeElement(i, j, grid[i][j].weight, grid[i][j].isWall, this)
+                    this.start = new NodeElement(i, j, grid[i][j].difficulty, grid[i][j].wall, this)
                     this.nodes.push(this.start)
                 } else if (i === end[0] && j === end[1]) {
-                    this.end = new NodeElement(i, j, grid[i][j].weight, grid[i][j].isWall, this)
+                    this.end = new NodeElement(i, j, grid[i][j].difficulty, grid[i][j].wall, this)
                     this.nodes.push(this.end)
                 } else {
-                    this.nodes.push(new NodeElement(i, j, grid[i][j].weight, grid[i][j].isWall, this))
+                    this.nodes.push(new NodeElement(i, j, grid[i][j].difficulty, grid[i][j].wall, this))
                 }
             }
         }
@@ -125,7 +124,6 @@ class AStar {
             if (this.openQueue[0] === this.end) {
                 break
             }
-
             let neighbours = this.openQueue[0].neighboursCalculation(this.openQueue)
             let queue = this.openQueue
             this.alreadyChecked.push(queue.shift())
@@ -134,17 +132,6 @@ class AStar {
             this.openQueue = sortedNeighbours
         }
         if (this.openQueue.length !== 0) { this.retrieveOptimalPath(this.openQueue[0]) }
-
-        let optimalPath = this.optimalPath
-        let alreadyChecked = this.alreadyChecked
-        let path = optimalPath.map(node => { return `${node.row}_${node.col}` })
-        let exploredNodes = alreadyChecked.map(node => { return `${node.row}_${node.col}` })
-        path.reverse();
-
-        return {
-            path, 
-            exploredNodes
-        }
     }
 
 
@@ -165,31 +152,9 @@ class AStar {
 
 }
 
-const weightArr = [
-    [0, 5, 11, 13, 16, 5, 4, 19, 10, 18],
-    [16, 1, 6, 17, 2, 7, 1, 15, 16, 4],
-    [4, 8, 11, 7, 11, 8, 4, 16, 11, 1],
-    [1, 13, 3, 17, 11, 9, 14, 8, 3, 5],
-    [3, 16, 11, 13, 1, 3, 12, 14, 12, 13],
-    [1, 3, 5, 16, 7, 6, 15, 15, 14, 3],
-    [12, 18, 4, 15, 16, 8, 16, 17, 4, 1],
-    [12, 5, 15, 10, 9, 19, 18, 7, 4, 7],
-    [17, 3, 14, 16, 5, 14, 3, 19, 4, 19],
-    [2, 11, 18, 10, 19, 2, 19, 13, 19, 0]
-]
-
-const objArr = weightArr.map(row => {
-    return row.map(weight => {
-        return {
-            weight,
-            isWall: false
-        }
-    })
-})
-
 let grid = [];
 let rows = 25
-let columns = 40
+let columns = 25
 let start = `${Math.floor(rows/2)}_${Math.floor(columns/3)}`;
 let end = `${Math.floor(rows/2)}_${Math.floor(2*columns/3)}`;
 
@@ -197,21 +162,11 @@ for(let i = 0; i < rows; i++) {
     grid.push([]);
     for(let j = 0; j < columns; j++) {
         grid[i].push({
-            weight: 1,
-            isWall: false
+            difficulty: 1,
+            wall: false
         })
     }
 }
 
-
-let a = new AStar([12, 13], [12, 26], grid)
-// console.log(a);
-console.log(a.startAlgorithm());
-
-// a.startAlgorithm()
-// let optimalPath = a.optimalPath
-// let alreadyChecked = a.alreadyChecked
-// let path = optimalPath.map(node => {return `${node.row}_${node.col}`})
-// let exploredNodes = alreadyChecked.map(node => {return `${node.row}_${node.col}`})
-// path.reverse();
-// console.log(path, exploredNodes);
+let aStarInstance = new AStar([12,13],[12,24],grid);
+console.log(aStarInstance.optimalPath);  
