@@ -31,6 +31,7 @@
 .nav {
   padding: 2px 20px;
   min-height: 3vw;
+  max-height: 3vw;
   width: 100vw;
   border: solid black 1px;
   top: 0;

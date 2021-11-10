@@ -63,15 +63,19 @@ function Grid({ rows, columns, range }) {
         if (isMouseDowninStartPoint) {
             let [i, j] = [parseInt(start.split('_')[0]), parseInt(start.split('_')[1])];
             document.getElementById(start).innerText = grid[i][j].weight;
+            document.getElementById(start).classList.remove("start-point");
             start = id;
             document.getElementById(start).innerText = "S";
+            document.getElementById(start).classList.add("start-point");
         }
 
         if (isMouseDowninEndPoint) {
             let [i, j] = [parseInt(end.split('_')[0]), parseInt(end.split('_')[1])];
             document.getElementById(end).innerText = grid[i][j].weight;
+            document.getElementById(end).classList.remove("end-point");
             end = id;
             document.getElementById(end).innerText = "E";
+            document.getElementById(end).classList.add("end-point");
         }
     }
 
@@ -91,7 +95,9 @@ function Grid({ rows, columns, range }) {
 
     function markEndPoints() {
         document.getElementById(start).innerText = "S"
+        document.getElementById(start).classList.add("start-point")
         document.getElementById(end).innerText = "E"
+        document.getElementById(end).classList.add("end-point")
     }
 
 
@@ -105,6 +111,13 @@ function Grid({ rows, columns, range }) {
         let astarGrid = new AstarGraph(start, end, grid);
         let { exploredNodes, path } = astarGrid.startAlgorithm();
         markCellSequence(exploredNodes, path, 'visited');
+    }
+
+    function clearTraversal() {
+        document.querySelectorAll(".cell").forEach(cell => {
+            cell.classList.remove("visited");
+            cell.classList.remove("path");
+        })
     }
 
     useEffect(() => {
@@ -137,6 +150,7 @@ function Grid({ rows, columns, range }) {
                                             onMouseDown={() => cellMouseDownHandler(id)}
                                             onMouseUp={() => cellMouseUpHandler()}
                                             onMouseEnter={() => cellMouseEnterHandler(id)}
+                                            style={{ backgroundColor: `rgba(50,255,200,${grid[row_index][column_index].weight/range})` }}
                                             key={column_index}
                                         >
                                             {grid[row_index][column_index].weight}
@@ -153,6 +167,7 @@ function Grid({ rows, columns, range }) {
                 <h3>Run Algorithms</h3>
                 <button onClick={simulateDjikstra}>Simulate Djikstra</button>
                 <button onClick={simulateAstar}>Simulate A*</button>
+                <button onClick={clearTraversal}>Clear Traversal</button>
             </div>
         </div>
     )

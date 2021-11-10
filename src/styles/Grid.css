@@ -22,15 +22,15 @@
 }
 
 .wall {
-  background-color: black;
+  background-color: black !important;
 }
 
 .visited {
-  background-color: dodgerblue;
+  background-color: dodgerblue !important;
 }
 
 .path {
-  background-color: yellow;
+  background-color: yellow !important;
 }
 
 .action-btns {
@@ -54,4 +54,12 @@ button {
 button:hover,
 button:active {
   background-color: rgb(173, 109, 233);
+}
+
+.start-point {
+  background-color: rgb(240, 22, 211) !important;
+}
+
+.end-point {
+  background-color: red !important;
 }

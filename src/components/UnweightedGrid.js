@@ -62,14 +62,18 @@ function Grid({ rows, columns }) {
 
         if (isMouseDowninStartPoint) {
             document.getElementById(start).innerText = "";
+            document.getElementById(start).classList.remove("start-point");
             start = id;
             document.getElementById(start).innerText = "S";
+            document.getElementById(start).classList.add("start-point");
         }
 
         if (isMouseDowninEndPoint) {
             document.getElementById(end).innerText = "";
+            document.getElementById(end).classList.remove("end-point");
             end = id;
             document.getElementById(end).innerText = "E";
+            document.getElementById(end).classList.add("end-point");
         }
     }
 
@@ -115,7 +119,16 @@ function Grid({ rows, columns }) {
 
     function markEndPoints() {
         document.getElementById(start).innerText = "S"
+        document.getElementById(start).classList.add("start-point")
         document.getElementById(end).innerText = "E"
+        document.getElementById(end).classList.add("end-point")
+    }
+
+    function clearTraversal() {
+        document.querySelectorAll(".cell").forEach(cell => {
+            cell.classList.remove("visited");
+            cell.classList.remove("path");
+        })
     }
 
     useEffect(() => {
@@ -165,6 +178,7 @@ function Grid({ rows, columns }) {
                 <button onClick={simulateDFS}>Simulate DFS</button>
                 <button onClick={simulateDjikstra}>Simulate Djikstra</button>
                 <button onClick={simulateAstar}>Simulate A*</button>
+                <button onClick={clearTraversal}>Clear Traversal</button>
             </div>
         </div>
     )
