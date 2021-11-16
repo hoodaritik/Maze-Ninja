@@ -8,7 +8,7 @@
   overflow-x: hidden;
   font-family: 'Urbanist', sans-serif;
   font-weight: bold;
-
+  border: solid black;
   position: relative;
 
   -moz-user-select: -moz-none;
