@@ -1,1 +1,1 @@
-# DS and Discrete Mathematics Project
+# Data Structures Project

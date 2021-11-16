@@ -96,6 +96,7 @@ class Graph {
 
             visited.push(currNode);
             currNode = this.shortestDistanceNode(distances, visited);
+            if(currNode === this.end) break;
         }
 
 

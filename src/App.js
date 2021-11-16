@@ -31,7 +31,7 @@ function App() {
         </nav>
         <Switch>
           <Route exact path="/">
-            <h1>Hello there!</h1>
+            <h1>Hello there! Welcome to Maze Ninja.</h1>
             <GraphNinja />
           </Route>
           <Route path="/unweighted">
