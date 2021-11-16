@@ -10,7 +10,7 @@
   font-weight: bold;
   border: solid black;
   position: relative;
-
+  overflow: hidden;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
