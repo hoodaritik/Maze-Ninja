@@ -1,4 +1,4 @@
-# Data Structures Project ❤️‍🔥
+# Discrete Mathematics Project ❤️‍🔥
 by @Samarthya2912 and @Rohan-here
 
 Deploy successful @ https://maze-ninja.herokuapp.com <br/>
